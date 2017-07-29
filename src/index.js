@@ -1,6 +1,18 @@
+import {getUsers} from './api/userApi';
 import './index.css';
 
-import numeral from 'numeral';
+getUsers().then(result => {
+    let usersBody = "";
 
-const currencyVal = numeral(50).format('$0,0.00');
-console.log(`Testing numeral library and ES6 template string ${currencyVal}`);
+    result.forEach(user => {
+        usersBody += `<tr>
+            <td><a href="#" data-id="${user.Id}" class="deleteUser">Delete</a></td>
+            <td>${user.id}</td>
+            <td>${user.firstName}</td>
+            <td>${user.lastName}</td>
+            <td>${user.email}</td>
+        </tr>`;
+    });
+
+    global.document.getElementById('users').innerHTML = usersBody;
+})
